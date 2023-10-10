@@ -3,7 +3,7 @@
 ''' Takes care of string and retrieving all changes, presistnece. '''
 
 import os
-import JSON
+import json
 from models.base_model import BaseModel
 
 
@@ -54,7 +54,7 @@ class FileStorage:
                 list_of_dicts = json.loads(f.read())
 
             for dict in list_of_dicts:
-                instance = BaseModel(**dict)
+                instance = basemodel.BaseModel(**dict)
                 self.new(obj)
         else:
             pass
