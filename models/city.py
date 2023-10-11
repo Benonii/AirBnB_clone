@@ -12,4 +12,4 @@ class City(BaseModel):
         ''' Instantisation. '''
         self.state_id = ""
         self.name = ""
-        super.__init__()
+        super().__init__()

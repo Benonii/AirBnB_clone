@@ -11,4 +11,4 @@ class Amenity(BaseModel):
     def __init__(self):
         ''' Instantisation '''
         self.name = ""
-        super.__init__()
+        super().__init__()

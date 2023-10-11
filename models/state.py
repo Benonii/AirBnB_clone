@@ -2,7 +2,7 @@
 
 ''' THis module contains the class State. '''
 
-from models.base import BaseModel
+from models.base_model import BaseModel
 
 
 class State(BaseModel):
@@ -11,4 +11,5 @@ class State(BaseModel):
     def __init__(self):
         ''' Instantization '''
         self.name = ""
-        super.__init__()
+
+        super().__init__()
