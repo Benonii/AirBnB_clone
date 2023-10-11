@@ -19,8 +19,12 @@ class BaseModel:
 
         if kwargs is not None:
             for key, value in kwargs.items():
-                if key == "created_at" or key == "updated_at":
+
+                # Convert string to dattime module for these two attributes
+                if key == "created_at" or key == "updated_at": 
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+
+                # Set attributes
                 setattr(self, key, value)
         storage.new(self)
 
@@ -33,6 +37,7 @@ class BaseModel:
         ''' Updates the public instance attribute `updated_at with the cuurent
             datetime. '''
 
+        # Saves all current objects to a json file
         storage.save()
         self.updated_at = datetime.now()
 
@@ -43,6 +48,8 @@ class BaseModel:
         Dict = {}
         for key, value in self.__dict__.items():
             if value is not None:
+
+                # Covnvert string to datetime module for these two attributes
                 if key == "created_at" or key == "updated_at":
                     Dict[key] = datetime.isoformat(value)
                 else:
