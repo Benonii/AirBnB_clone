@@ -40,6 +40,7 @@ print(my_state)
 print("-- Create a new City --")
 my_city = City()
 my_city.name = "Zion"
+my_city.state_id = my_state.id
 my_city.save()
 print(my_city)
 
@@ -52,11 +53,15 @@ print(my_amenity)
 print("-- Create a place --")
 my_place = Place()
 my_place.name = "La La Land"
+my_place.city_id = my_city.id
+my_place.user_id = my_user.id
 my_place.save()
 print(my_place)
 
 print("-- Create a Review --")
 my_review = Review()
 my_review.text = "The best place on earth"
+my_review.place_id = my_place.id
+my_review.user_id = my_user.id
 my_review.save()
 print(my_review)
