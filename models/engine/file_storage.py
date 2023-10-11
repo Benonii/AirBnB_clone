@@ -45,6 +45,7 @@ class FileStorage:
         
         # Putting this import statement in the beginning was causing issues.
         from models.base_model import BaseModel
+        from models.user import User
 
         filename = self.__file_path
 
