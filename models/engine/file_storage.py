@@ -2,9 +2,8 @@
 
 ''' Takes care of string and retrieving all changes, presistnece. '''
 
-import os
+
 import json
-from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -16,12 +15,12 @@ class FileStorage:
 
     def __init__(self):
         ''' Instantization '''
-        self.__file_path = "file.jsom"
-        self.__objects = {}
+        self.__file_path = "file.json"
+        self.__objects = dict()
 
     def all(self):
         ''' Prints sll elements of the private attr objects '''
-        self.__objects
+        return self.__objects
 
     def new(self, obj):
         ''' Sets in __objects the obj with key <obj class name>.id '''
@@ -31,30 +30,30 @@ class FileStorage:
         ''' Saves objects into a file specified by __file_path. '''
 
         filename = self.__file_path
-        list_dicts = []
+        data_to_write = {}
 
-        with open(filename, "a", encoding="utf-8") as f:
-            for obj in self.__objects:
-                dict_rep = obj.to_dict()
-                list_dicts.append(dict_rep)
+        for key, obj in self.__objects.items():
+            data_to_write[key] = obj.to_dict()
 
-            if list_dicts is not None:
-                json_str = json.dumps(list_dicts)
-            f.write(json_str)
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(data_to_write, f)
 
     def reload(self):
         ''' deserializes the JSON file to __objects
             (only if the JSON file (__file_path) exists; otherwise, do nothing)
         '''
+        from models.base_model import BaseModel
 
         filename = self.__file_path
-        
-        if os.path.exists(filename):
-            with open(filename ,"r", encoding="utf-8") as f:
+
+        try:
+            with open(filename, "r", encoding="utf-8") as f:
                 list_of_dicts = json.loads(f.read())
 
-            for dict in list_of_dicts:
-                instance = basemodel.BaseModel(**dict)
-                self.new(obj)
-        else:
+            for key, value in list_of_dicts.items():
+                class_name, obj_id = key.split(".")
+                instance = BaseModel(**value)
+                self.__objects[key] = instance
+
+        except FileNotFoundError:
             pass
