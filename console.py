@@ -5,7 +5,12 @@
 from shlex import split
 
 from models.base_model import BaseModel
-'''the base model'''
+from models.user import User
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
 
 import cmd
 '''cmd model'''
@@ -52,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
             obj => the object
             Return: True if the obj's type exist, False if not
         '''
-        classList = ["BaseModel", " User", "Place", "State",
+        classList = ["BaseModel", "User", "Place", "State",
                 "City", "Amenity", "Review"]
         for i in classList:
             if obj == i:
