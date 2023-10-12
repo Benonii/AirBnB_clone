@@ -12,10 +12,10 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 
+from models import storage
+
 import cmd
 '''cmd model'''
-
-from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -57,8 +57,15 @@ class HBNBCommand(cmd.Cmd):
             obj => the object
             Return: True if the obj's type exist, False if not
         '''
-        classList = ["BaseModel", "User", "Place", "State",
-                "City", "Amenity", "Review"]
+        classList = [
+                "BaseModel",
+                "User",
+                "Place",
+                "State",
+                "City",
+                "Amenity",
+                "Review"
+                ]
         for i in classList:
             if obj == i:
                 return True
@@ -73,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
         '''EOF command to exit the program
         '''
         return True
-    
+
     def do_create(self, obj):
         '''Usage: create a new <class>
         Create command to creates a new instance and print the id
@@ -90,7 +97,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         '''Usage: print the <class> <id>
-        Show command to prints the string representation of an instance based on the class name and id
+        Show command to prints the string representation of an instance
+        based on the class name and id
         '''
         argv = self.parse(arg)
         if len(argv) == 0:
@@ -136,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, obj):
         '''Usage: print all string representation of the <class>
-        All prints all string representation of all instances based or not on the class name
+        All prints all string representation of all instances of a class
         '''
         lis = list()
         argv = self.parse(obj)
@@ -150,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, strr):
         '''Usage: updates the instance of the <class> based on <id>
-        Update updates an instance based on the class name and id by adding or updating attribute
+        Update updates an instance based on the class name and id
         '''
         argv = self.parse(strr)
         store = storage.all()
@@ -182,6 +190,7 @@ class HBNBCommand(cmd.Cmd):
                 obj = store[s]
                 obj.__dict__[argv[2]] = argv[3]
         storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
