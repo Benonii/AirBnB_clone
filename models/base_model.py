@@ -21,7 +21,7 @@ class BaseModel:
             for key, value in kwargs.items():
 
                 # Convert string to dattime module for these two attributes
-                if key == "created_at" or key == "updated_at": 
+                if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
 
                 # Set attributes

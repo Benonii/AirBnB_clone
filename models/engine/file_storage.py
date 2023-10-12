@@ -42,7 +42,7 @@ class FileStorage:
         ''' deserializes the JSON file to __objects
             (only if the JSON file (__file_path) exists; otherwise, do nothing)
         '''
-        
+
         # Putting this import statement in the beginning was causing issues.
         from models.base_model import BaseModel
         from models.user import User
