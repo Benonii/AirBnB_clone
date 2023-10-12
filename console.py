@@ -65,15 +65,19 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, line):
-        '''Quit command to exit the program'''
+        '''Quit command to exit the program
+        '''
         return True
 
     def do_EOF(self, line):
-        '''EOF command to exit the program'''
+        '''EOF command to exit the program
+        '''
         return True
     
     def do_create(self, obj):
-        '''Create command to creates a new instance of BaseModel and print the id'''
+        '''Usage: create a new <class>
+        Create command to creates a new instance and print the id
+        '''
         argv = self.parse(obj)
         if len(argv) == 0:
             print("** class name missing **")
@@ -85,7 +89,9 @@ class HBNBCommand(cmd.Cmd):
             print(new_ins.id)
 
     def do_show(self, arg):
-        '''Show prints the string representation of an instance based on the class name and id'''
+        '''Usage: print the <class> <id>
+        Show command to prints the string representation of an instance based on the class name and id
+        '''
         argv = self.parse(arg)
         if len(argv) == 0:
             print("** class name missing **")
@@ -105,7 +111,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, arg):
-        '''Destroy deletes an instance based on the class name and id'''
+        '''Usage: deletes an instance of a <class>
+        Destroy deletes an instance based on the class name and id
+        '''
         argv = self.parse(arg)
         if len(argv) == 0:
             print("** class name missing **")
@@ -127,7 +135,9 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
 
     def do_all(self, obj):
-        '''All prints all string representation of all instances based or not on the class name'''
+        '''Usage: print all string representation of the <class>
+        All prints all string representation of all instances based or not on the class name
+        '''
         lis = list()
         argv = self.parse(obj)
         if self.checkClass(argv[0]) is not True:
@@ -139,7 +149,9 @@ class HBNBCommand(cmd.Cmd):
             print(lis)
 
     def do_update(self, strr):
-        '''Update updates an instance based on the class name and id by adding or updating attribute'''
+        '''Usage: updates the instance of the <class> based on <id>
+        Update updates an instance based on the class name and id by adding or updating attribute
+        '''
         argv = self.parse(strr)
         store = storage.all()
         if len(argv) == 0:
