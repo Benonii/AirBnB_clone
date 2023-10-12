@@ -30,12 +30,15 @@ class FileStorage:
         ''' Saves objects into a file specified by __file_path. '''
 
         filename = self.__file_path
+        # Saves the data that will be written to the file
         data_to_write = {}
 
         for key, obj in self.__objects.items():
+            # Converts each object in __objects to a dict
             data_to_write[key] = obj.to_dict()
 
         with open(filename, "w", encoding="utf-8") as f:
+            # Writes the dict to file.json
             json.dump(data_to_write, f)
 
     def reload(self):
@@ -43,7 +46,7 @@ class FileStorage:
             (only if the JSON file (__file_path) exists; otherwise, do nothing)
         '''
 
-        # Putting this import statement in the beginning was causing issues.
+        # Putting these import statements in the beginning was causing issues.
         from models.base_model import BaseModel
         from models.user import User
         from models.city import City
@@ -59,9 +62,15 @@ class FileStorage:
                 list_of_dicts = json.loads(f.read())
 
             for key, value in list_of_dicts.items():
+                #Saves the class name and object id 
                 class_name, obj_id = key.split(".")
-                instance = BaseModel(**value)
-                self.__objects[key] = instance
+                
+                # If the class name is one of our classes
+                if class_name in globals():
+                    # creates an instance of each dict
+                    instance = globals()[class_name](**value)
+                    self.__objects[key] = instance
 
         except FileNotFoundError:
+            # Don't do nothing if file doesn't exist
             pass
