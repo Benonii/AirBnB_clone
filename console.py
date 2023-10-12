@@ -47,6 +47,17 @@ class HBNBCommand(cmd.Cmd):
                     s += j
         return arg
 
+    def checkClass(self, obj):
+        '''a function to check if the obj's type is or is not in this list
+            obj => the object
+            Return: True if the obj's type exist, False if not
+        '''
+        classList = ["BaseModel", " User", "Place", "State",
+                "City", "Amenity", "Review"]
+        for i in classList:
+            if obj == i:
+                return True
+        return False
 
     def do_quit(self, line):
         '''Quit command to exit the program'''
@@ -58,28 +69,29 @@ class HBNBCommand(cmd.Cmd):
     
     def do_create(self, obj):
         '''Create command to creates a new instance of BaseModel and print the id'''
-        if len(obj) == 0:
+        argv = self.parse(obj)
+        if len(argv) == 0:
             print("** class name missing **")
-        elif obj != "BaseModel":
+        elif self.checkClass(argv[0]) is not True:
             print("** class doesn't exist **")
         else:
-            new_ins = BaseModel()
+            new_ins = eval(argv[0])()
             new_ins.save()
             print(new_ins.id)
 
     def do_show(self, arg):
         '''Show prints the string representation of an instance based on the class name and id'''
-        lis = arg.split(" ", 2)
-        if lis[0] == '':
+        argv = self.parse(arg)
+        if len(argv) == 0:
             print("** class name missing **")
-        elif lis[0] != "BaseModel":
+        elif self.checkClass(argv[0]) is not True:
             print("** class doesn't exist **")
-        elif len(lis) < 2:
+        elif len(argv) < 2:
             print("** instance id missing **")
         else:
             o = 0
             store = storage.all()
-            s = "{}.{}".format(lis[0], lis[1])
+            s = "{}.{}".format(argv[0], argv[1])
             for i in store:
                 if i == s:
                     o = 1
@@ -89,17 +101,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         '''Destroy deletes an instance based on the class name and id'''
-        lis = arg.split(" ", 2)
-        if lis[0] == '':
+        argv = self.parse(arg)
+        if len(argv) == 0:
             print("** class name missing **")
-        elif lis[0] != "BaseModel":
+        elif self.checkClass(argv[0]) is not True:
             print("** class doesn't exist **")
-        elif len(lis) < 2:
+        elif len(argv) < 2:
             print("** instance id missing **")
         else:
             o = 0
             store = storage.all()
-            s = "{}.{}".format(lis[0], lis[1])
+            s = "{}.{}".format(argv[0], argv[1])
             for i in store:
                 if i == s:
                     o = 1
@@ -112,11 +124,12 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, obj):
         '''All prints all string representation of all instances based or not on the class name'''
         lis = list()
-        if obj != "BaseModel":
+        argv = self.parse(obj)
+        if self.checkClass(argv[0]) is not True:
             print("** class doesn't exist **")
         else:
             for i in storage.all().values():
-                if obj == i.__class__.__name__:
+                if argv[0] == i.__class__.__name__:
                     lis.append(i.__str__())
             print(lis)
 
@@ -127,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
         if len(argv) == 0:
             print("** class name missing **")
             return False
-        elif argv[0] != "BaseModel":
+        elif self.checkClass(argv[0]) is not True:
             print("** class doesn't exist **")
             return False
         elif len(argv) < 2:
