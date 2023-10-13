@@ -25,6 +25,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         '''to skip the empty line'''
+        pass
 
     def parse(self, strr):
         '''a function to parse the line and return a list of the arguments'''
@@ -79,6 +80,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         '''EOF command to exit the program
         '''
+        print("")
         return True
 
     def do_create(self, obj):
