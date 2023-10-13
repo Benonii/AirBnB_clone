@@ -62,14 +62,25 @@ class FileStorage:
                 list_of_dicts = json.loads(f.read())
 
             for key, value in list_of_dicts.items():
-                #Saves the class name and object id 
+                # Saves the class name and object id
                 class_name, obj_id = key.split(".")
-                
-                # If the class name is one of our classes
-                if class_name in globals():
-                    # creates an instance of each dict
-                    instance = globals()[class_name](**value)
-                    self.__objects[key] = instance
+
+                # Creates an instance of each dict
+                if class_name == "BaseModel":
+                    instance = BaseModel(**value)
+                elif class_name == "User":
+                    instance = User(**value)
+                elif class_name == "State":
+                    instance = State(**value)
+                elif class_name == "City":
+                    instance = City(**value)
+                elif class_name == "Amenity":
+                    instance = Amenity(**value)
+                elif class_name == "Place":
+                    instance = Place(**value)
+                else:
+                    instance = Review(**value)
+                self.__objects[key] = instance
 
         except FileNotFoundError:
             # Don't do nothing if file doesn't exist

@@ -8,8 +8,8 @@ from models.base_model import BaseModel
 class City(BaseModel):
     ''' This class inherits from BaseModel. '''
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         ''' Instantisation. '''
         self.state_id = ""
         self.name = ""
-        super().__init__()
+        super().__init__(*args, **kwargs)

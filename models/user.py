@@ -8,11 +8,11 @@ from models.base_model import BaseModel
 class User(BaseModel):
     ''' A class that inherits from BaseModel '''
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         ''' Instantization '''
         self.email = ""
         self.password = ""
         self.first_name = ""
         self.last_name = ""
 
-        super().__init__()
+        super().__init__(*args, **kwargs)
