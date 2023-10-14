@@ -57,6 +57,16 @@ class FileStorage:
 
         filename = self.__file_path
 
+        # Create a dictionary to map class names to their corresponding classes
+        class_mapping = {
+                'BaseModel': BaseModel,
+                'User': User,
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Place': Place,
+                'Review': Review
+                }
         try:
             with open(filename, "r", encoding="utf-8") as f:
                 list_of_dicts = json.loads(f.read())
@@ -66,21 +76,11 @@ class FileStorage:
                 class_name, obj_id = key.split(".")
 
                 # Creates an instance of each dict
-                if class_name == "BaseModel":
-                    instance = BaseModel(**value)
-                elif class_name == "User":
-                    instance = User(**value)
-                elif class_name == "State":
-                    instance = State(**value)
-                elif class_name == "City":
-                    instance = City(**value)
-                elif class_name == "Amenity":
-                    instance = Amenity(**value)
-                elif class_name == "Place":
-                    instance = Place(**value)
-                else:
-                    instance = Review(**value)
-                self.__objects[key] = instance
+                class_reference = class_mapping.get(class_name)
+
+                if class_reference:
+                    instance = class_reference(**value)
+                    self.__objects[key] = instance
 
         except FileNotFoundError:
             # Don't do nothing if file doesn't exist

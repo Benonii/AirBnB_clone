@@ -10,7 +10,7 @@ from time import sleep
 from models.base_model import BaseModel
 
 
-class TestBase_inti(unittest.TestCase):
+class TestBase_init(unittest.TestCase):
     '''a class to test the base module'''
 
     def test_objectCreated(self):
@@ -128,9 +128,9 @@ class TestBase_dict(unittest.TestCase):
         m.first_name = "Jack"
         m.last_name = "Will"
         m.number = 28
-        self.assertIsEqual("Jack", m.to_dict()["first_name"])
-        self.assertIsEqual("Will", m.to_dict()["last_name"])
-        self.assertIsEqual(28, m.to_dict()["number"])
+        self.assertEqual("Jack", m.to_dict()["first_name"])
+        self.assertEqual("Will", m.to_dict()["last_name"])
+        self.assertEqual(28, m.to_dict()["number"])
     
     def test_dictIsDict(self):
         '''checks if the dict's return value's type is dict'''
@@ -142,7 +142,7 @@ class TestBase_dict(unittest.TestCase):
         '''checks if the __class__ has the name of the object'''
 
         m = BaseModel()
-        self.assertIsEqual("BaseModel", m.to_dict()["__class__"])
+        self.assertEqual("BaseModel", m.to_dict()["__class__"])
 
     def test_rightReturn(self):
         '''checks if the to_dict function returns the correct answer'''
@@ -161,7 +161,6 @@ class TestBase_dict(unittest.TestCase):
             'created_at': time,
             'updated_at': time,
             }
-        self.asserIsEqual(dictionary, m.to_dict())
-
+        self.assertEqual(dictionary, m.to_dict())
 if __name__ == "__main__":
     unittest.main()
