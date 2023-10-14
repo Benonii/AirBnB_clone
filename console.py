@@ -72,6 +72,29 @@ class HBNBCommand(cmd.Cmd):
                 return True
         return False
 
+    def default(self, line):
+        '''set the defult when it doesn't recognaize the command'''
+
+        default = {
+                "all": self.do_all,
+                "show": self.do_show,
+                "destroy": self.do_destroy,
+                "update": self.do_update,
+                "count": self.do_count
+                }
+        try:
+            argv = line.split(".")
+            argv += argv[1].split("(")
+            argv += argv[3].split(")")
+            command = "{} {}".format(argv[0], argv[4])
+            for i in default:
+                if i == argv[2]:
+                    return default[i](command)
+        except (IndexError, AttributeError):
+            pass
+        print("*** Unknown syntax: {}".format(line))
+        return False
+
     def do_quit(self, line):
         '''Quit command to exit the program
         '''
@@ -193,6 +216,11 @@ class HBNBCommand(cmd.Cmd):
                 obj.__dict__[argv[2]] = argv[3]
         storage.save()
 
+    def do_count(self, line):
+        '''Count counts the instances of a <class>
+        retrieve the number of instances of a class
+        '''
+        pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
