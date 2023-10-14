@@ -18,11 +18,22 @@ class BaseModel:
         self.updated_at = datetime.now()
 
         if kwargs is not None:
+            class_name = kwargs.pop("__class__", None)
+            
+            if class_name:
+                # Dynamically load the class based on the class name
+                class_ref = globals().get(class_name)
+                
+                if class_ref:
+                    self.__class__ = class_ref
+
             for key, value in kwargs.items():
 
                 # Convert string to dattime module for these two attributes
                 if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "id":
+                    value = str(value)
 
                 # Set attributes
                 setattr(self, key, value)
@@ -54,4 +65,5 @@ class BaseModel:
                     Dict[key] = datetime.isoformat(value)
                 else:
                     Dict[key] = value
+        Dict["__class__"] = 'BaseModel'
         return Dict
