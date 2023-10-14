@@ -15,19 +15,20 @@ class TestBase_init(unittest.TestCase):
 
     def test_objectCreated(self):
         '''test that the object was created and its type is BaseModel'''
-        
+
         m = BaseModel()
         self.assertEqual(BaseModel, type(m))
 
     def test_objectStored(self):
-        '''test that the object that was created is stored inside the storage'''
+        '''test that the object that was created is stored inside the storage
+        '''
 
         m = BaseModel()
         self.assertIn(m, models.storage.all().values())
-    
+
     def test_objectIdIsStr(self):
         '''checks if the id was created as a string'''
-        
+
         m = BaseModel()
         self.assertEqual(type(m.id), str)
 
@@ -68,22 +69,24 @@ class TestBase_init(unittest.TestCase):
         n = BaseModel()
         self.assertNotEqual(m.id, n.id)
 
+
 class TestBase_str(unittest.TestCase):
     '''a class to test the str function'''
 
     def test_strIsStr(self):
         '''checks if the str function prints a string'''
-        
+
         m = BaseModel()
         self.assertEqual(str, type(m.__str__()))
 
     def test_rightPrint(self):
         '''checks if the str function prints the right string'''
-        
+
         m = BaseModel()
         s = "[{}] ({}) {}".format(m.__class__.__name__, m.id,
-                                     m.__dict__)
+                                  m.__dict__)
         self.assertEqual(s, m.__str__())
+
 
 class TestBase_save(unittest.TestCase):
     '''a class to test the save function'''
@@ -97,6 +100,7 @@ class TestBase_save(unittest.TestCase):
         m.save()
         time2 = m.updated_at
         self.assertNotEqual(time, time2)
+
 
 class TestBase_dict(unittest.TestCase):
     '''a class to test the to_dict function'''
@@ -131,7 +135,7 @@ class TestBase_dict(unittest.TestCase):
         self.assertEqual("Jack", m.to_dict()["first_name"])
         self.assertEqual("Will", m.to_dict()["last_name"])
         self.assertEqual(28, m.to_dict()["number"])
-    
+
     def test_dictIsDict(self):
         '''checks if the dict's return value's type is dict'''
 
@@ -157,10 +161,12 @@ class TestBase_dict(unittest.TestCase):
         time = time.isoformat()
         dictionary = {
                 'id': '28',
-            '__class__': 'BaseModel',
-            'created_at': time,
-            'updated_at': time,
+                '__class__': 'BaseModel',
+                'created_at': time,
+                'updated_at': time,
             }
         self.assertEqual(dictionary, m.to_dict())
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -223,5 +223,6 @@ class TestReview(unittest.TestCase):
         self.assertEqual(self.review.user_id, self.user.id)
         self.assertEqual(self.review.text, "Great place")
 
+
 if __name__ == "__main__":
     unittest.main()
