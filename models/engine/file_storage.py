@@ -35,7 +35,13 @@ class FileStorage:
 
         for key, obj in self.__objects.items():
             # Converts each object in __objects to a dict
-            data_to_write[key] = obj.to_dict()
+            obj_dict = obj.to_dict()
+
+            # Filter empty keys
+            filtered_dict = {k: v for k, v in obj_dict.items() if v}
+
+            if filtered_dict:
+                data_to_write[key] = filtered_dict
 
         with open(filename, "w", encoding="utf-8") as f:
             # Writes the dict to file.json

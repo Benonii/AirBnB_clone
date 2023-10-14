@@ -34,18 +34,20 @@ class BaseModel:
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 elif key == "id":
                     value = str(value)
-
-                # Set attributes
-                setattr(self, key, value)
+                if value is not None:
+                    # Set attributes
+                    setattr(self, key, value)
         storage.new(self)
 
     def __str__(self):
         ''' returns a printable string of the object '''
+
+        filtered_dict = {k: v for k, v in self.__dict__.items() if v}
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
-                                     self.__dict__)
+                                     filtered_dict)
 
     def save(self):
-        ''' Updates the public instance attribute `updated_at with the cuurent
+        ''' Updates the public instance attribute `updated_at with the current
             datetime. '''
 
         # Saves all current objects to a json file
@@ -59,7 +61,6 @@ class BaseModel:
         Dict = {}
         for key, value in self.__dict__.items():
             if value is not None:
-
                 # Covnvert string to datetime module for these two attributes
                 if key == "created_at" or key == "updated_at":
                     Dict[key] = datetime.isoformat(value)
