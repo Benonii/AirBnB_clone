@@ -19,11 +19,11 @@ class BaseModel:
 
         if kwargs is not None:
             class_name = kwargs.pop("__class__", None)
-            
+
             if class_name:
                 # Dynamically load the class based on the class name
                 class_ref = globals().get(class_name)
-                
+
                 if class_ref:
                     self.__class__ = class_ref
 
@@ -65,5 +65,5 @@ class BaseModel:
                     Dict[key] = datetime.isoformat(value)
                 else:
                     Dict[key] = value
-        Dict["__class__"] = 'BaseModel'
+        Dict["__class__"] = self.__class__.__name__
         return Dict
