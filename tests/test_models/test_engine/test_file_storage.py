@@ -3,6 +3,7 @@ import os
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
+
 class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
@@ -52,6 +53,6 @@ class TestFileStorage(unittest.TestCase):
         all_objects = new_storage.all()
         self.assertEqual(len(all_objects), 1)
 
+
 if __name__ == '__main__':
     unittest.main()
-
