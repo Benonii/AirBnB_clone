@@ -90,7 +90,11 @@ class HBNBCommand(cmd.Cmd):
             command = "{} {}".format(argv[0], argv[4])
             c = command.split(", ", 1)
             if len(c) == 2 and c[1][0] == "{":
-                cmd = eval(c[1])
+                cmd = "{} ".format(c[0])
+                c = eval(c[1])
+                for i in c:
+                    cmd += " {}".format(i)
+                    cmd += " {}".format(str(c[i])) 
                 for i in default:
                     if i == argv[2]:
                         return default[i](cmd)
@@ -198,39 +202,37 @@ class HBNBCommand(cmd.Cmd):
         '''Usage: updates the instance of the <class> based on <id>
         Update updates an instance based on the class name and id
         '''
-        if isinstance(strr, dict) is True:
-            print("nope")
+
+        argv = self.parse(strr)
+        store = storage.all()
+        if len(argv) == 0:
+            print("** class name missing **")
+            return False
+        elif self.checkClass(argv[0]) is not True:
+            print("** class doesn't exist **")
+            return False
+        elif len(argv) < 2:
+            print("** instance id missing **")
+            return False
         else:
-            argv = self.parse(strr)
-            store = storage.all()
-            if len(argv) == 0:
-                print("** class name missing **")
+            o = 0
+            s = "{}.{}".format(argv[0], argv[1])
+            for i in store:
+                if i == s:
+                    o = 1
+            if o == 0:
+                print("** no instance found **")
                 return False
-            elif self.checkClass(argv[0]) is not True:
-                print("** class doesn't exist **")
+            if len(argv) < 3:
+                print("** attribute name missing **")
                 return False
-            elif len(argv) < 2:
-                print("** instance id missing **")
+            elif len(argv) < 4:
+                print("** value missing **")
                 return False
             else:
-                o = 0
-                s = "{}.{}".format(argv[0], argv[1])
-                for i in store:
-                    if i == s:
-                        o = 1
-                if o == 0:
-                    print("** no instance found **")
-                    return False
-                if len(argv) < 3:
-                    print("** attribute name missing **")
-                    return False
-                elif len(argv) < 4:
-                    print("** value missing **")
-                    return False
-                else:
-                    obj = store[s]
-                    obj.__dict__[argv[2]] = argv[3]
-            storage.save()
+                obj = store[s]
+                obj.__dict__[argv[2]] = argv[3]
+        storage.save()
 
     def do_count(self, line):
         '''Usage: Count counts the instances of a <class>
