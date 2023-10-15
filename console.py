@@ -87,6 +87,11 @@ class HBNBCommand(cmd.Cmd):
             argv += argv[1].split("(")
             argv += argv[3].split(")")
             command = "{} {}".format(argv[0], argv[4])
+            cmd = ""
+            c = command.split(",")
+            for i in c:
+                cmd += i + " "
+            print(cmd)
             for i in default:
                 if i == argv[2]:
                     return default[i](command)
