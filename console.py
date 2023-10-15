@@ -220,7 +220,15 @@ class HBNBCommand(cmd.Cmd):
         '''Count counts the instances of a <class>
         retrieve the number of instances of a class
         '''
-        pass
+        store = storage.all()
+        s = 0
+        argv = self.parse(line)
+        for i in store:
+            m = i.split(".")
+            if argv[0] == m[0]:
+                s += 1
+        print(s)
+
 
 
 if __name__ == '__main__':
