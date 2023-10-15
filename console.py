@@ -173,13 +173,15 @@ class HBNBCommand(cmd.Cmd):
         '''
         lis = list()
         argv = self.parse(obj)
-        if self.checkClass(argv[0]) is not True:
-            print("** class doesn't exist **")
-        else:
-            for i in storage.all().values():
-                if argv[0] == i.__class__.__name__:
-                    lis.append(i.__str__())
-            print(lis)
+        print(argv)
+        if len(argv) != 0:
+            if self.checkClass(argv[0]) is not True:
+                print("** class doesn't exist **")
+            else:
+                for i in storage.all().values():
+                    if argv[0] == i.__class__.__name__:
+                        lis.append(i.__str__())
+                        print(lis)
 
     def do_update(self, strr):
         '''Usage: updates the instance of the <class> based on <id>
@@ -187,6 +189,7 @@ class HBNBCommand(cmd.Cmd):
         '''
         argv = self.parse(strr)
         store = storage.all()
+        print(argv)
         if len(argv) == 0:
             print("** class name missing **")
             return False
