@@ -217,7 +217,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_count(self, line):
-        '''Count counts the instances of a <class>
+        '''Usage: Count counts the instances of a <class>
         retrieve the number of instances of a class
         '''
         store = storage.all()
