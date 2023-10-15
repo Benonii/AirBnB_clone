@@ -173,7 +173,6 @@ class HBNBCommand(cmd.Cmd):
         '''
         lis = list()
         argv = self.parse(obj)
-        print(argv)
         if len(argv) != 0:
             if self.checkClass(argv[0]) is not True:
                 print("** class doesn't exist **")
@@ -189,7 +188,6 @@ class HBNBCommand(cmd.Cmd):
         '''
         argv = self.parse(strr)
         store = storage.all()
-        print(argv)
         if len(argv) == 0:
             print("** class name missing **")
             return False
