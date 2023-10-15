@@ -229,6 +229,14 @@ class HBNBCommand(cmd.Cmd):
             elif len(argv) < 4:
                 print("** value missing **")
                 return False
+            elif len(argv) > 4:
+                att = 2
+                val = 3
+                obj = store[s]
+                while val < len(argv):
+                    obj.__dict__[argv[att]] = argv[val]
+                    val += 1
+                    att += 1
             else:
                 obj = store[s]
                 obj.__dict__[argv[2]] = argv[3]
