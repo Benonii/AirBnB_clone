@@ -16,7 +16,6 @@ from models import storage
 
 import cmd
 '''cmd model'''
-import json
 
 
 class HBNBCommand(cmd.Cmd):
@@ -94,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
                 c = eval(c[1])
                 for i in c:
                     cmd += " {}".format(i)
-                    cmd += " {}".format(str(c[i])) 
+                    cmd += " {}".format(str(c[i]))
                 for i in default:
                     if i == argv[2]:
                         return default[i](cmd)
