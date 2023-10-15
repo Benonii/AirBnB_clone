@@ -91,10 +91,9 @@ class HBNBCommand(cmd.Cmd):
             c = command.split(",")
             for i in c:
                 cmd += i + " "
-            print(cmd)
             for i in default:
                 if i == argv[2]:
-                    return default[i](command)
+                    return default[i](cmd)
         except (IndexError, AttributeError):
             pass
         print("*** Unknown syntax: {}".format(line))
