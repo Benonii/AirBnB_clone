@@ -16,6 +16,7 @@ from models import storage
 
 import cmd
 '''cmd model'''
+import json
 
 
 class HBNBCommand(cmd.Cmd):
@@ -87,13 +88,20 @@ class HBNBCommand(cmd.Cmd):
             argv += argv[1].split("(")
             argv += argv[3].split(")")
             command = "{} {}".format(argv[0], argv[4])
-            cmd = ""
-            c = command.split(",")
-            for i in c:
-                cmd += i + " "
-            for i in default:
-                if i == argv[2]:
-                    return default[i](cmd)
+            c = command.split(", ", 1)
+            if len(c) == 2 and c[1][0] == "{":
+                cmd = eval(c[1])
+                for i in default:
+                    if i == argv[2]:
+                        return default[i](cmd)
+            else:
+                cmd = ""
+                c = command.split(",")
+                for i in c:
+                    cmd += i + " "
+                for i in default:
+                    if i == argv[2]:
+                        return default[i](cmd)
         except (IndexError, AttributeError):
             pass
         print("*** Unknown syntax: {}".format(line))
@@ -190,36 +198,39 @@ class HBNBCommand(cmd.Cmd):
         '''Usage: updates the instance of the <class> based on <id>
         Update updates an instance based on the class name and id
         '''
-        argv = self.parse(strr)
-        store = storage.all()
-        if len(argv) == 0:
-            print("** class name missing **")
-            return False
-        elif self.checkClass(argv[0]) is not True:
-            print("** class doesn't exist **")
-            return False
-        elif len(argv) < 2:
-            print("** instance id missing **")
-            return False
+        if isinstance(strr, dict) is True:
+            print("nope")
         else:
-            o = 0
-            s = "{}.{}".format(argv[0], argv[1])
-            for i in store:
-                if i == s:
-                    o = 1
-            if o == 0:
-                print("** no instance found **")
+            argv = self.parse(strr)
+            store = storage.all()
+            if len(argv) == 0:
+                print("** class name missing **")
                 return False
-            if len(argv) < 3:
-                print("** attribute name missing **")
+            elif self.checkClass(argv[0]) is not True:
+                print("** class doesn't exist **")
                 return False
-            elif len(argv) < 4:
-                print("** value missing **")
+            elif len(argv) < 2:
+                print("** instance id missing **")
                 return False
             else:
-                obj = store[s]
-                obj.__dict__[argv[2]] = argv[3]
-        storage.save()
+                o = 0
+                s = "{}.{}".format(argv[0], argv[1])
+                for i in store:
+                    if i == s:
+                        o = 1
+                if o == 0:
+                    print("** no instance found **")
+                    return False
+                if len(argv) < 3:
+                    print("** attribute name missing **")
+                    return False
+                elif len(argv) < 4:
+                    print("** value missing **")
+                    return False
+                else:
+                    obj = store[s]
+                    obj.__dict__[argv[2]] = argv[3]
+            storage.save()
 
     def do_count(self, line):
         '''Usage: Count counts the instances of a <class>
