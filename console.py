@@ -224,11 +224,12 @@ class HBNBCommand(cmd.Cmd):
         store = storage.all()
         s = 0
         argv = self.parse(line)
-        for i in store:
-            m = i.split(".")
-            if argv[0] == m[0]:
-                s += 1
-        print(s)
+        if len(argv) != 0:
+            for i in store:
+                m = i.split(".")
+                if argv[0] == m[0]:
+                    s += 1
+            print(s)
 
 
 if __name__ == '__main__':
