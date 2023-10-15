@@ -17,27 +17,27 @@ class BaseModel:
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 
-        if kwargs is not None:
-            class_name = kwargs.pop("__class__", None)
+        class_name = kwargs.pop("__class__", None)
 
-            if class_name:
-                # Dynamically load the class based on the class name
-                class_ref = globals().get(class_name)
+        if class_name:
+            # Dynamically load the class based on the class name
+            class_ref = globals().get(class_name)
 
-                if class_ref:
-                    self.__class__ = class_ref
+            if class_ref:
+                self.__class__ = class_ref
 
-            for key, value in kwargs.items():
+        for key, value in kwargs.items():
 
-                # Convert string to dattime module for these two attributes
-                if key == "created_at" or key == "updated_at":
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                elif key == "id":
-                    value = str(value)
-                if value is not None:
-                    # Set attributes
-                    setattr(self, key, value)
-        storage.new(self)
+            # Convert string to dattime module for these two attributes
+            if key == "created_at" or key == "updated_at":
+                value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+            elif key == "id":
+                value = str(value)
+            if value is not None:
+                # Set attributes
+                setattr(self, key, value)
+        if not kwargs:
+            storage.new(self)
 
     def __str__(self):
         ''' returns a printable string of the object '''
