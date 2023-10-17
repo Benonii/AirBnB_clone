@@ -8,8 +8,8 @@ from models.base_model import BaseModel
 class State(BaseModel):
     ''' This class inherits from the base class BaseModel. '''
 
+    name = ""
+
     def __init__(self, *args, **kwargs):
         ''' Instantization '''
-        self.name = ""
-
         super().__init__(*args, **kwargs)

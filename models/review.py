@@ -8,10 +8,10 @@ from models.base_model import BaseModel
 class Review(BaseModel):
     ''' This class inherits from the base class BaseModel. '''
 
+    place_id = ""
+    user_id = ""
+    text = ""
+
     def __init__(self, *args, **kwargs):
         ''' Instantisation. '''
-        self.place_id = ""
-        self.user_id = ""
-        self.text = ""
-
         super().__init__(*args, **kwargs)

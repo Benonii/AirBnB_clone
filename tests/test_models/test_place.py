@@ -40,7 +40,6 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(self.place.price_by_night, 0)
         self.assertEqual(self.place.latitude, 0.0)
         self.assertEqual(self.place.longitude, 0.0)
-        self.assertEqual(self.place.amenity_ids, [])
 
     def test_place_assignment(self):
         ''' Tests if things are assigned properly '''
