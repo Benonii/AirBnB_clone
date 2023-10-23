@@ -1,0 +1,78 @@
+.container .places .articles {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container .places article .top{
+    display: flex;
+    justify-content: center;
+}
+
+.container .places article{
+    display: inline-block;
+    text-align: center;
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: #FF5A5F 1px solid;
+    border-radius: 4px;
+}
+
+.container .places .h1 {
+    margin-left: 50px;
+    font-size: 30px;
+    
+}
+
+.contanier .places article .top .h2 {
+
+    font-size: 30px;
+    text-align: top;
+    position: fixed;
+}
+
+.container .places article .price_by_night {
+    display: flex;
+    font-size: 30px;
+    text-align: center;
+    color: #FF5A5F;
+    border: #FF5A5F 4px solid;
+    border-radius: 60px;
+    width: 70px;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    
+}
+
+.container .palces .article .top .right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container .places article .information {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    height: 80px;
+    border-top: #DDDDDD 2px solid;
+    border-bottom: #DDDDDD 1px solid;
+    line-height: 0;
+}
+
+.containter .places article .information .max_guest {
+    display: block;
+}
+
+.container .places article .user {
+    justify-content: left;
+    text-align: left;
+}
+
+.container .places article .descritption {
+    justify-content: flex-start;
+    text-align: left;
+}

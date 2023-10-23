@@ -1,0 +1,23 @@
+.container .filters {
+   	display: flex;
+    	background-color: #FFF;
+    	height: 70px;
+    	width: 100%;
+    	border: 1px #DDDDDD solid;
+    	border-radius: 4px;
+    	justify-content: flex-end;
+    	align-items: center;
+}
+
+button {
+	display: flex;
+    	font-size: 18px;
+    	background-color: #FF5A5F;
+    	color: #FFFFFF;
+    	height: 48px;
+   	width: 20%;
+   	border-radius: 4px;
+    	align-items: center;
+    	justify-content: center;
+    	margin-right: 30px;
+}

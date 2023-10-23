@@ -1,0 +1,26 @@
+
+.container .places article{
+    display: inline-block;
+    text-align: center;
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: #FF5A5F 1px solid;
+    border-radius: 4px;
+}
+
+.container .places.h1 {
+    margin-left: 50px;
+    font-size: 30px;
+}
+
+.container .places #centering {
+    display: flex;
+    justify-content: center;
+}
+   
+
+.container .places article .h2 {
+    font-size: 30px;
+    text-align: center;
+}

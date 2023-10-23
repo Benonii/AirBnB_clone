@@ -1,0 +1,10 @@
+header {
+    display: flex;
+    background-color: #FFF;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px #CCCCCC solid;
+    justify-content: felx-start;
+    align-items: left;
+    padding-left: 20px;
+}
