@@ -62,12 +62,29 @@
 }
 
 .container .popover {
+    display: none;
     background-color:  #FAFAFA;
     border: 1px #DDDDDD solid;
     border-radius: 4px;
-    width: 25%;
+    width: 100%;
 }
 
 .container .filters .locations:hover .popover {
     display: block;
+    position: relative;
+}
+
+.container .filters .amenities:hover .popover {
+    display: block;
+    position: relative;
+}
+
+.container .filters .locations .popover ul {
+    list-style: none;
+    line-height: 1.4;
+}
+
+.container .filters .amenities .popover ul {
+    list-style: none;
+    line-height: 2.5;
 }
